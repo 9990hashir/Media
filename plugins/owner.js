@@ -1,53 +1,33 @@
-/* Copyright (C) 2021 AFNAN PALLIKKEL
-
-Re-CODDED BY MIKHAIEL
-
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-*/
-
 const Asena = require('../events');
-const {MessageType} = require('@adiwajshing/baileys');
-const {spawnSync} = require('child_process');
-const Config = require('../config');
-const chalk = require('chalk');
+const {MessageType, MessageOptions, Mimetype} = require('@adiwajshing/baileys');
+const axios = require('axios');
 
 const Language = require('../language');
-const Lang = Language.getString('system_stats');
+const Lang = Language.getString('wallpaper');
 
+Asena.addCommand({pattern: 'git', fromMe: false, desc: Lang.WP}, (async (message, match) => {
 
-if (Config.WORKTYPE == 'private') {
+    var r_text = new Array ();
+    
+    
+   
+  r_text[0] = "https://user-images.githubusercontent.com/87589712/129968092-cd718847-1f1f-42ee-a97d-4a6dcd3f7dd5.jpg";
+    
+    
+    var i = Math.floor(1*Math.random())
 
-    Asena.addCommand({pattern: 'owner', fromMe: true, desc: 'shows the detail of bot owner'}, (async (message, match) => {
+    var respoimage = await axios.get(`${r_text[i]}`, { responseType: 'arraybuffer' })
 
-        if (message.jid === '15369524516-1612300121@g.us') {
+    await message.sendMessage(Buffer(respoimage.data), MessageType.image, {mimetype: Mimetype.png, caption: `*Creator Muhammed Hashir*
+*HASHIR-BOT V3*
 
-            return;
-        }
+*Owner number wa.me/919037072660*
 
-        if (Config.OWNRN == 'default') {
-            await message.client.sendMessage(message.jid,'Jimbrootan created by *Mikhaiel*' , MessageType.text);
-        }
-        else {
-            await message.client.sendMessage(message.jid,Config.OWNRN + '\n\n---------------------', MessageType.text);
-        }
-    }));
-}
+*githublink       https://github.com/Muhammedhashirm009/HASHIRBOT*
 
-else if (Config.WORKTYPE == 'public') {
+*audio commands    https://github.com/Muhammedhashirm009/HASHIRBOT/tree/master/uploads*
 
-    Asena.addCommand({pattern: 'owner', fromMe: false, desc: 'shows the detail of bot owner'}, (async (message, match) => {
+*sticker commands  https://github.com/Muhammedhashirm009/HASHIRBOT/tree/master/stickers*
+`}) 
 
-        if (message.jid === '54218542512-1612300121@g.us') {
-
-            return;
-        }
-
-        if (Config.OWNRN == 'default') {
-            await message.client.sendMessage(message.jid,'Jimbrootan created by *Mikhaiel*' , MessageType.text);
-        }
-        else {
-            await message.client.sendMessage(message.jid,Config.OWNRN + '\n\n--------------------', MessageType.text);
-        }
-    }));
-}
+}));
